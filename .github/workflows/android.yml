@@ -16,6 +16,11 @@ jobs:
           distribution: 'temurin'
       - name: Configurar Android SDK
         uses: android-actions/setup-android@v3
+      - name: Instalar dependencias Node
+        run: |
+          if [ -f "package.json" ]; then
+            npm install --legacy-peer-deps
+          fi
       - name: Gerar APK Debug
         run: |
           if [ -f "android/gradlew" ]; then
@@ -23,6 +28,11 @@ jobs:
             chmod +x gradlew
             ./gradlew assembleDebug
           elif [ -f "gradlew" ]; then
+            chmod +x gradlew
+            ./gradlew assembleDebug
+          else
+            npx expo prebuild --platform android --non-interactive
+            cd android
             chmod +x gradlew
             ./gradlew assembleDebug
           fi
