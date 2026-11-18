@@ -2,6 +2,7 @@ name: Gerar APK Android
 on: [push]
 jobs:
   build:
+    timeout-minutes: 25
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,25 +15,30 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Aceitar licencas Android SDK
+        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
       - name: Instalar dependencias Node
         run: |
           if [ -f "package.json" ]; then
             npm install --legacy-peer-deps
           fi
-      - name: Gerar APK Debug
+      - name: Criar debug.keystore e Gerar APK
         run: |
           if [ -f "android/gradlew" ]; then
+            mkdir -p android/app
+            if [ ! -f "android/app/debug.keystore" ]; then
+              keytool -genkey -v -keystore android/app/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+            fi
             cd android
             chmod +x gradlew
-            ./gradlew assembleDebug
+            ./gradlew assembleDebug --no-daemon
           elif [ -f "gradlew" ]; then
+            mkdir -p app
+            if [ ! -f "app/debug.keystore" ]; then
+              keytool -genkey -v -keystore app/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+            fi
             chmod +x gradlew
-            ./gradlew assembleDebug
-          else
-            npx expo prebuild --platform android --non-interactive
-            cd android
-            chmod +x gradlew
-            ./gradlew assembleDebug
+            ./gradlew assembleDebug --no-daemon
           fi
       - name: Salvar APK para Download
         uses: actions/upload-artifact@v4
