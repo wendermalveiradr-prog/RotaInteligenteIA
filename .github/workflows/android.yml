@@ -14,8 +14,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Configurar Android SDK
-        uses: android-actions/setup-android@v3
       - name: Instalar dependencias Node
         run: |
           if [ -f "package.json" ]; then
