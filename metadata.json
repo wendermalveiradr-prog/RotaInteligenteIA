@@ -1,0 +1,6 @@
+{
+  "name": "Rota Inteligente IA",
+  "description": "Assistente nativo para entregadores Mob Lets em Montes Claros - MG com Acessibilidade, OCR ML Kit, rota completa em 4 etapas, semáforo R$/km e janela flutuante.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

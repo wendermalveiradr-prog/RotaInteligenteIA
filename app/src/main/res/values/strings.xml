@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Rota Inteligente IA</string>
+    <string name="accessibility_service_label">Rota Inteligente IA • Leitor Mob Lets</string>
+    <string name="accessibility_service_description">Detecta ofertas de entrega exibidas na tela (preço, loja de retirada e endereço do cliente) usando acessibilidade ou fallback OCR para calcular km totais, R$/km e alertas de bairro. Nunca aceita nem recusa corridas automaticamente.</string>
+    <string name="overlay_notification_channel_name">Monitoramento Flutuante</string>
+    <string name="overlay_notification_channel_desc">Mantém o painel flutuante de análise de corridas ativo sobre o Mob Lets</string>
+    <string name="overlay_notification_title">Rota Inteligente IA ativa</string>
+    <string name="overlay_notification_text">Monitorando ofertas • Meta mínima R$ 1,90/km • Montes Claros</string>
+</resources>
